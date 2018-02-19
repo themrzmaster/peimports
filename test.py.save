@@ -1,0 +1,4 @@
+import pefile
+import pydasm
+
+pe = pefile.PE('')
