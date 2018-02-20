@@ -76,9 +76,12 @@ def extract(file):
 		for imp in entry.imports: #for each function imported calculate how many times it was called, jumped
 			lista[str(hex(imp.address))] = imp.name
 	lista_offset = list(lista.keys())
-	print lista_offset
 	offset = 0
 	count = 0
+	for item in lista_offset:
+		lista_count[item] = 0
+
+	print lista_count	
 	while offset < len(data):
 		try:
 			i = pydasm.get_instruction(data[offset:], pydasm.MODE_32)
