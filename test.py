@@ -79,9 +79,10 @@ def updateAPI(file):
 						m_id = str(mod_id)
 						query_set = "INSERT INTO apis (module, name) VALUES (" + m_id + ",'" + imp.name + "')" 
 						cursor.execute(query_set)
-			cnx.commit()
-		except AttributeError as e:
-			print e	
+
+			cnx.commit()			
+	except AttributeError as e:
+		print e	
 
 def extract(file):
 	lista = {}
