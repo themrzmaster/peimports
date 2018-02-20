@@ -8,7 +8,6 @@ import os
 cnx = mysql.connector.connect(user='root', password="132331", database='pedata')
 cursor = cnx.cursor()
 
-cnx.rollback()
 
 
 directory = os.getcwd() + "/files"
@@ -29,6 +28,7 @@ def updateModules(file):
 			cursor.execute(query_add_module, name)
 			emp_no = cursor.lastrowid
 			print emp_no
+			cnx.commit()
 
 
 for file in os.listdir(directory):
@@ -36,6 +36,7 @@ for file in os.listdir(directory):
 			updateModules(file)
 
 
+cnx.close()
 
 #for file in os.listdir(directory):
 #	if not file.endswith(".py"):
