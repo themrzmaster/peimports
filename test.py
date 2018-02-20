@@ -26,6 +26,7 @@ def updateFiles(file):
 		cnx.commit()
 
 def updateModules(file):
+	print file
 	pe = pefile.PE(file)
 	for entry in pe.DIRECTORY_ENTRY_IMPORT:
 		name = entry.dll
@@ -107,9 +108,12 @@ def extract(file):
 		cursor.execute(query_get_api)
 		row = cursor.fetchall()
 		api_id = row[0][0]
+		#check if already added
+		query_check = "SELECT * FROM extract WHERE hash = '" + str(file) + "' AND api = '" + str(api_id) + "'"
 		query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + str(file) + "', "  + str(api_id) + ", "  + str(value) + " )"
-		print query_add
-
+		#cursor.execute(query_add)
+		print query_check
+	#cursor.commit()	
 	print lista
 
 for file in os.listdir(directory):
