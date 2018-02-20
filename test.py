@@ -172,7 +172,7 @@ def extract(file):
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
 			if not checkProcessed(file):
-				print "processing " + n_processed + " of " + n_files + " ..."
+				print "processing " + str(n_processed) + " of " + str(n_files) + " ..."
 				updateFiles(file)
 				updateModules(file)
 				updateAPI(file)
