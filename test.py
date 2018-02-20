@@ -107,7 +107,7 @@ def extract(file):
 		cursor.execute(query_get_api)
 		row = cursor.fetchall()
 		api_id = row[0][0]
-		query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + file + "', "  + str(api_id) + ", "  + value + " )"
+		query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + str(file) + "', "  + str(api_id) + ", "  + str(value) + " )"
 		print quer_add
 
 for file in os.listdir(directory):
