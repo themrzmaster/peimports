@@ -34,11 +34,12 @@ def checkProcessed(file):
 	query_get = "SELECT * FROM files WHERE hash = '" + hash_file + "'"
 	cursor.execute(query_get)
 	data = cursor.fetchall()
+	n_processed += 1
 	if data:
 		return True
 	else:
 		return False
-	n_processed += 1		
+
 
 
 
