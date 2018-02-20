@@ -11,12 +11,12 @@ cursor = cnx.cursor()
 
 
 directory = os.getcwd() + "/files"
-print directory
+#print directory
 
 def updateFiles(file):
-	print file
+	#print file
 	query_get = "SELECT * FROM files WHERE hash = '" + file + "'"
-	print query_get
+	#print query_get
 	cursor.execute(query_get)
 	data = cursor.fetchall()
 	if not data:
@@ -63,6 +63,10 @@ def updateAPI(file):
 
 def extract(file):
 	lista = {}
+	soma = {}
+	lista_count = {}
+	x = 0
+	count = 0
 	pe = pefile.PE(file)
 	ep = pe.OPTIONAL_HEADER.AddressOfEntryPoint
 	ep_ava = ep+pe.OPTIONAL_HEADER.ImageBase
@@ -71,10 +75,22 @@ def extract(file):
 		module_name = entry.dll
 		for imp in entry.imports: #for each function imported calculate how many times it was called, jumped
 			lista[str(hex(imp.address))] = imp.name
-
-	print lista		
-
-		
+	for key, value in lista.iteritems():
+		offset = 0
+		while offset < len(data):
+			try:
+				i = pydasm.get_instruction(data[offset:], pydasm.MODE_32)
+				line = pydasm.get_instruction_string(i, pydasm.FORMAT_INTEL, ep_ava+offset)
+				if str(key) in line:
+					#print line, offset
+					count += 1
+				offset += i.length
+			except TypeError as et:
+				#print 'erro ', offset
+				offset += 12
+		lista_count[value] = count
+	
+	print lista_count				
 
 
 for file in os.listdir(directory):
