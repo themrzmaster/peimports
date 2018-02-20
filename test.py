@@ -14,7 +14,7 @@ cursor = cnx.cursor()
 directory = os.getcwd() + "/files"
 print directory
 def updateModules(file):
-	pe = pefile.PE(file)
+	pe = pefile.PE(directory+file)
 	for entry in pe.DIRECTORY_ENTRY_IMPORT:
 		name = entry.dll
 		query_get_module = ("SELECT * FROM modules WHERE name LIKE %s", ("%" + name + "%",))
