@@ -55,7 +55,7 @@ def updateModules(file):
 			cursor.execute(query_add_module)
 			emp_no = cursor.lastrowid
 			#print emp_no
-			cnx.commit()
+		cnx.commit()
 
 def updateAPI(file):
 	pe = pefile.PE(file)
@@ -66,14 +66,15 @@ def updateAPI(file):
 		row = cursor.fetchall()
 		mod_id = row[0][0]
 		for imp in entry.imports:
-			query_get = "SELECT * FROM apis WHERE name = '" + imp.name + "'"
-			cursor.execute(query_get)
-			data = cursor.fetchall()
-			if not data:
-				m_id = str(mod_id)
-				query_set = "INSERT INTO apis (module, name) VALUES (" + m_id + ",'" + imp.name + "')" 
-				cursor.execute(query_set)
-				cnx.commit()
+			if imp.name:
+				query_get = "SELECT * FROM apis WHERE name = '" + imp.name + "'"
+				cursor.execute(query_get)
+				data = cursor.fetchall()
+				if not data:
+					m_id = str(mod_id)
+					query_set = "INSERT INTO apis (module, name) VALUES (" + m_id + ",'" + imp.name + "')" 
+					cursor.execute(query_set)
+		cnx.commit()
 
 def extract(file):
 	lista = {}
