@@ -1,5 +1,8 @@
 import pefile
 import pydasm
+import mysql.connector
+
+#mysql - localhost, root, 132331, pedata
 
 pe = pefile.PE('21e2bfb55a7d692f5bbde6cc53914b84')
 ep = pe.OPTIONAL_HEADER.AddressOfEntryPoint
