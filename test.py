@@ -90,7 +90,8 @@ def extract(file):
 				#if any(item in line for item in lista_offset):
 				for w in lista_offset:
 					if w in line:
-						print w
+						#print w
+						lista_count[w] += 1
 					#count += 1
 				offset += i.length
 			else:
