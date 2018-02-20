@@ -103,7 +103,7 @@ def extract(file):
 	#print lista_count
 	for keys, value in lista_count.iteritems():
 		name = lista[keys]
-		print name
+		#print name
 		query_get_api = "SELECT idapis FROM apis WHERE name = '" + name + "'"
 		cursor.execute(query_get_api)
 		row = cursor.fetchall()
@@ -120,9 +120,9 @@ def extract(file):
 		if not data:
 			query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + str(hash_id) + "', "  + str(api_id) + ", "  + str(value) + " )"
 			cursor.execute(query_add)
-		print query_check
+		#print query_check
 	cnx.commit()	
-	print lista
+	#print lista
 
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
