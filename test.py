@@ -24,6 +24,18 @@ cursor = cnx.cursor()
 directory = os.getcwd()
 #print directory
 
+def checkProcessed(file):
+	hash_file = between(file, "_", ".vir")
+	query_get = "SELECT * FROM files WHERE hash = '" + hash_file + "'"
+	cursor.execute(query_get)
+	data = cursor.fetchall()
+	if data:
+		return True
+	else:
+		return False	
+
+
+
 def updateFiles(file):
 	#print file
 	hash_file = between(file, "_", ".vir")
@@ -153,10 +165,11 @@ def extract(file):
 
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
-			updateFiles(file)
-			updateModules(file)
-			updateAPI(file)
-			extract(file)
+			if not checkProcessed(file):
+				updateFiles(file)
+				updateModules(file)
+				updateAPI(file)
+				extract(file)
 
 
 cnx.close()
