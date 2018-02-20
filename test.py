@@ -57,7 +57,8 @@ def updateAPI(file):
 			if not data:
 				m_id = str(mod_id)
 				query_set = "INSERT INTO apis (module, name) VALUES (" + m_id + ",'" + imp.name + "')" 
-				print query_set
+				cursor.execute(query_set)
+				cnx.commit()
 
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
