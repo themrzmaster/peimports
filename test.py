@@ -77,22 +77,21 @@ def extract(file):
 			lista[str(hex(imp.address))] = imp.name
 	lista_offset = tuple(list(lista.keys()))
 	print lista_offset
-	for key, value in lista.iteritems():
-		offset = 0
-		count = 0
-		while offset < len(data):
-			try:
-				i = pydasm.get_instruction(data[offset:], pydasm.MODE_32)
-				line = pydasm.get_instruction_string(i, pydasm.FORMAT_INTEL, ep_ava+offset)
-				if line:
-					if any(s in line for s in lista_offset):
-						print s
-						#count += 1
-				offset += i.length
-			except TypeError as et:
-				#print 'erro ', offset
-				offset += 12
-		lista_count[value] = count
+	offset = 0
+	count = 0
+	while offset < len(data):
+		try:
+			i = pydasm.get_instruction(data[offset:], pydasm.MODE_32)
+			line = pydasm.get_instruction_string(i, pydasm.FORMAT_INTEL, ep_ava+offset)
+			if line:
+				if any(s in line for s in lista_offset):
+					print s
+					#count += 1
+			offset += i.length
+		except TypeError as et:
+			#print 'erro ', offset
+			offset += 12
+		#lista_count[value] = count
 	
 	print lista_count				
 
