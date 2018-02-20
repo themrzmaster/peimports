@@ -19,7 +19,7 @@ def updateModules(file):
 		name = entry.dll
 		query_get_module = ("SELECT * FROM modules "
 							"WHERE name LIKE '%s'")
-		print query_get_module
+		print query_get_module, name
 		cursor.execute(query_get_module, ("%"+name+"%"))
 		data = cursor.fetchall()
 		if not data:
@@ -27,7 +27,7 @@ def updateModules(file):
 			query_add_module = ("INSERT INTO modules "
 								"(name) " 
 								"VALUES ('%s')")
-			print query_add_module
+			print query_add_module, name
 			cursor.execute(query_add_module, name)
 			emp_no = cursor.lastrowid
 			print emp_no
