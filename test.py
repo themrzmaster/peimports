@@ -25,7 +25,7 @@ def updateModules(file):
 			#not added yet
 			query_add_module = ("INSERT INTO modules "
 								"(name) " 
-								"VALUES (%s)")
+								"VALUES ('%s')")
 			cursor.execute(query_add_module, name)
 			emp_no = cursor.lastrowid
 			print emp_no
