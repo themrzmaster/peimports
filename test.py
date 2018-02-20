@@ -11,8 +11,8 @@ cursor = cnx.cursor()
 
 
 
-directory = os.getcwd()
-
+directory = os.getcwd() + "/files"
+print directory
 def updateModules(file):
 	pe = pefile.PE(file)
 	for entry in pe.DIRECTORY_ENTRY_IMPORT:
