@@ -3,6 +3,17 @@ import pydasm
 import mysql.connector
 import os
 
+
+
+
+cnx = mysql.connector.connect(user='root', password="132331", database='pedata')
+cursor = cnx.cursor()
+
+directory = os.getcwd()
+n_files = len(os.walk(directory).next()[2])
+n_processed = 0
+#print directory
+
 #mysql - localhost, root, 132331, pedata
 def between(value, a, b):
     # Find and validate before-part.
@@ -16,17 +27,9 @@ def between(value, a, b):
     if adjusted_pos_a >= pos_b: return ""
     return value[adjusted_pos_a:pos_b] 
 
-cnx = mysql.connector.connect(user='root', password="132331", database='pedata')
-cursor = cnx.cursor()
-
-
-
-directory = os.getcwd()
-n_files = len(os.walk(directory).next()[2])
-n_processed = 0
-#print directory
 
 def checkProcessed(file):
+	global n_processed
 	hash_file = between(file, "_", ".vir")
 	query_get = "SELECT * FROM files WHERE hash = '" + hash_file + "'"
 	cursor.execute(query_get)
@@ -166,6 +169,7 @@ def extract(file):
 	cnx.commit()	
 	#print lista
 
+n_processed = 0
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
 			if not checkProcessed(file):
