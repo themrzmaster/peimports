@@ -108,7 +108,7 @@ def extract(file):
 		row = cursor.fetchall()
 		api_id = row[0][0]
 		query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + str(file) + "', "  + str(api_id) + ", "  + str(value) + " )"
-		print quer_add
+		print query_add
 
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
