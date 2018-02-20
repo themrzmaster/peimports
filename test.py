@@ -12,27 +12,40 @@ cursor = cnx.cursor()
 
 directory = os.getcwd() + "/files"
 print directory
+
+def updateFiles(file):
+	query_get = "SELECT * FROM files WHERE hash = '" + file + "'"
+	print query_get
+	cursor.execute(query_get)
+	data = cursor.fetchall()
+	if not data:
+		query_add = "INSERT INTO files (hash) VALUES ('" + file + "')"
+		print query_add
+		cursor.execute(query_add)
+		cnx.commit()
+
 def updateModules(file):
 	pe = pefile.PE(directory+"/"+file)
 	for entry in pe.DIRECTORY_ENTRY_IMPORT:
 		name = entry.dll
 		query_get_module = "SELECT * FROM modules WHERE name = "
 		query_get = query_get_module + "'"+name+"'"
-		print query_get
+		#print query_get
 		cursor.execute(query_get)
 		data = cursor.fetchall()
 		if not data:
 			#not added yet
 			query_add_module = "INSERT INTO modules (name) VALUES ('" + name + "')"
-			print query_add_module
-			cursor.execute(query_add_module, name)
+			#print query_add_module
+			cursor.execute(query_add_module)
 			emp_no = cursor.lastrowid
-			print emp_no
+			#print emp_no
 			cnx.commit()
 
 
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
+			updateFiles(file)
 			updateModules(file)
 
 
