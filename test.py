@@ -84,10 +84,11 @@ def extract(file):
 			try:
 				i = pydasm.get_instruction(data[offset:], pydasm.MODE_32)
 				line = pydasm.get_instruction_string(i, pydasm.FORMAT_INTEL, ep_ava+offset)
-				if any(s in line for s in lista_offset):
-					print s
-					#count += 1
-				offset += i.length
+				if line:
+					if any(s in line for s in lista_offset):
+						print s
+						#count += 1
+					offset += i.length
 			except TypeError as et:
 				#print 'erro ', offset
 				offset += 12
