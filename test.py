@@ -4,29 +4,42 @@ import mysql.connector
 import os
 
 #mysql - localhost, root, 132331, pedata
+def between(value, a, b):
+    # Find and validate before-part.
+    pos_a = value.find(a)
+    if pos_a == -1: return ""
+    # Find and validate after part.
+    pos_b = value.rfind(b)
+    if pos_b == -1: return ""
+    # Return middle part.
+    adjusted_pos_a = pos_a + len(a)
+    if adjusted_pos_a >= pos_b: return ""
+    return value[adjusted_pos_a:pos_b] 
 
 cnx = mysql.connector.connect(user='root', password="132331", database='pedata')
 cursor = cnx.cursor()
 
 
 
-directory = os.getcwd() + "/files"
+directory = os.getcwd()
 #print directory
 
 def updateFiles(file):
 	#print file
-	query_get = "SELECT * FROM files WHERE hash = '" + file + "'"
+	hash_file = between(file, "_", ".vir")
+	query_get = "SELECT * FROM files WHERE hash = '" + hash_file + "'"
 	#print query_get
 	cursor.execute(query_get)
 	data = cursor.fetchall()
 	if not data:
-		query_add = "INSERT INTO files (hash) VALUES ('" + file + "')"
+		query_add = "INSERT INTO files (hash) VALUES ('" + hash_file + "')"
 		#rint query_add
 		cursor.execute(query_add)
 		cnx.commit()
 
 def updateModules(file):
 	print file
+	hash_file = between(file, "_", ".vir")
 	pe = pefile.PE(file)
 	for entry in pe.DIRECTORY_ENTRY_IMPORT:
 		name = entry.dll
@@ -68,6 +81,7 @@ def extract(file):
 	lista_count = {}
 	x = 0
 	count = 0
+	hash_file = between(file, "_", ".vir")
 	pe = pefile.PE(file)
 	ep = pe.OPTIONAL_HEADER.AddressOfEntryPoint
 	ep_ava = ep+pe.OPTIONAL_HEADER.ImageBase
@@ -109,7 +123,7 @@ def extract(file):
 		row = cursor.fetchall()
 		api_id = row[0][0]
 
-		query_get_hash = "SELECT idfile FROM files WHERE hash = '" + str(file) + "'"
+		query_get_hash = "SELECT idfile FROM files WHERE hash = '" + str(hash_file) + "'"
 		cursor.execute(query_get_hash)
 		row = cursor.fetchall()
 		hash_id = row[0][0]
