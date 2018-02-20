@@ -85,7 +85,7 @@ def extract(file):
 			line = pydasm.get_instruction_string(i, pydasm.FORMAT_INTEL, ep_ava+offset)
 			if line:
 				if any(s in line for s in lista_offset):
-					print s
+					print line
 					#count += 1
 				offset += i.length
 			else:
