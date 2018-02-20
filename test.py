@@ -17,8 +17,8 @@ def updateModules(file):
 	pe = pefile.PE(directory+"/"+file)
 	for entry in pe.DIRECTORY_ENTRY_IMPORT:
 		name = entry.dll
-		query_get_module = "SELECT * FROM modules WHERE name LIKE %s", ("%" + name + "%",)
-		cursor.execute(query_get_module)
+		query_get_module = "SELECT * FROM modules WHERE name LIKE %s"
+		cursor.execute(query_get_module, (name))
 		data = cursor.fetchall()
 		print data
 
