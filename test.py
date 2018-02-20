@@ -110,10 +110,13 @@ def extract(file):
 		api_id = row[0][0]
 		#check if already added
 		query_check = "SELECT * FROM extract WHERE hash = '" + str(file) + "' AND api = '" + str(api_id) + "'"
-		query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + str(file) + "', "  + str(api_id) + ", "  + str(value) + " )"
-		#cursor.execute(query_add)
+		cursor.execute(query_check)
+		data = cursor.fetchall()
+		if not data:
+			query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + str(file) + "', "  + str(api_id) + ", "  + str(value) + " )"
+			cursor.execute(query_add)
 		print query_check
-	#cursor.commit()	
+	cursor.commit()	
 	print lista
 
 for file in os.listdir(directory):
