@@ -16,13 +16,17 @@ print directory
 def updateModules(file):
 	pe = pefile.PE(directory+"/"+file)
 	for entry in pe.DIRECTORY_ENTRY_IMPORT:
-		name = "%"+entry.dll+"%"
+		name = entry.dll
 		query_get_module = ("SELECT * FROM modules "
 							"WHERE name LIKE '%s'")
-		cursor.execute(query_get_module, (name))
+		cursor.execute(query_get_module, ("%"+name+"%"))
 		data = cursor.fetchall()
 		if not data:
-			print "nop"
+			#not added yet
+			query_add_module = "INSERT INTO modules (name) VALUES (%s)"
+			cursor.execute(query_add_module, name)
+			emp_no = cursor.lastrowid
+			print emp_no
 
 
 for file in os.listdir(directory):
