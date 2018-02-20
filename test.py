@@ -18,19 +18,15 @@ def updateModules(file):
 	for entry in pe.DIRECTORY_ENTRY_IMPORT:
 		name = entry.dll
 		query_get_module = "SELECT * FROM modules WHERE name = "
-
 		query_get = query_get_module + "'"+name+"'"
 		print query_get
 		cursor.execute(query_get)
-		#data = cursor.fetchall()
-		data = 0
+		data = cursor.fetchall()
 		if not data:
 			#not added yet
-			query_add_module = ("INSERT INTO modules "
-								"(name) " 
-								"VALUES (")
-			print query_add_module, name, ")"
-			#cursor.execute(query_add_module, name)
+			query_add_module = "INSERT INTO modules (name) VALUES ('" + name + "')"
+			print query_add_module
+			cursor.execute(query_add_module, name)
 			emp_no = cursor.lastrowid
 			print emp_no
 
