@@ -24,7 +24,7 @@ def updateModules(file):
 
 
 for file in os.listdir(directory):
-		if not file.endswith(".py"):
+		if not file.endswith(".py") or not file.endswith(".git") :
 			updateModules(file)
 
 
