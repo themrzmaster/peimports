@@ -1,5 +1,6 @@
 import os
 import pefile
+import pydasm
 
 directory = os.path.dirname(os.path.abspath(__file__))
 for file in os.listdir(directory):
