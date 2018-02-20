@@ -14,7 +14,7 @@ for file in os.listdir(directory):
 			try:
 				i = pydasm.get_instruction(data[offset:], pydasm.MODE_32)
 				line = pydasm.get_instruction_string(i, pydasm.FORMAT_INTEL, ep_ava+offset)
-				if '0x420658' in line:
+				if '0x4204d4' in line:
 					print line, offset
 				offset += i.length
 			except TypeError as et:
