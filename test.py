@@ -87,7 +87,9 @@ def extract(file):
 				if any(s in line for s in lista_offset):
 					print s
 					#count += 1
-			offset += i.length
+				offset += i.length
+			else:
+				offset += 12
 		except TypeError as et:
 			#print 'erro ', offset
 			offset += 12
