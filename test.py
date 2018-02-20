@@ -81,7 +81,7 @@ def extract(file):
 	for item in lista_offset:
 		lista_count[item] = 0
 
-	print lista_count	
+	#print lista_count	
 	while offset < len(data):
 		try:
 			i = pydasm.get_instruction(data[offset:], pydasm.MODE_32)
@@ -90,7 +90,6 @@ def extract(file):
 				#if any(item in line for item in lista_offset):
 				for w in lista_offset:
 					if w in line:
-						#print w
 						lista_count[w] += 1
 					#count += 1
 				offset += i.length
@@ -100,9 +99,14 @@ def extract(file):
 			#print 'erro ', offset
 			offset += 12
 		#lista_count[value] = count
-	
-	print lista_count				
-
+	#print lista_count
+	for keys, value in lista_count.iteritems():
+		name = lista[keys]
+		print name
+		quer_get_api = "SELECT idapis FROM apis WHERE name = '" + name + "'"
+		print quer_get_api
+		query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + file + "',"  +  " )"
+		print quer_get_api
 
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
