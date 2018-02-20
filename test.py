@@ -20,8 +20,8 @@ def updateModules(file):
 		query_get_module = ("SELECT * FROM modules "
 							"WHERE name LIKE '%s'")
 		cursor.execute(query_get_module, (name))
-		data = cursor.fetchall()
-		print data
+		count = cursor.rowcount
+		print count
 
 
 for file in os.listdir(directory):
