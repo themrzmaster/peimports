@@ -169,7 +169,6 @@ def extract(file):
 	cnx.commit()	
 	#print lista
 
-n_processed = 0
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
 			if not checkProcessed(file):
