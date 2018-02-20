@@ -108,12 +108,17 @@ def extract(file):
 		cursor.execute(query_get_api)
 		row = cursor.fetchall()
 		api_id = row[0][0]
+
+		query_get_hash = "SELECT idfile FROM files WHERE hash = '" + str(file) + "'"
+		cursor.execute(query_get_hash)
+		row = cursor.fetchall()
+		hash_id = row[0][0]
 		#check if already added
-		query_check = "SELECT * FROM extract WHERE hash = '" + str(file) + "' AND api = '" + str(api_id) + "'"
+		query_check = "SELECT * FROM extract WHERE hash = '" + str(hash_id) + "' AND api = '" + str(api_id) + "'"
 		cursor.execute(query_check)
 		data = cursor.fetchall()
 		if not data:
-			query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + str(file) + "', "  + str(api_id) + ", "  + str(value) + " )"
+			query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + str(hash_id) + "', "  + str(api_id) + ", "  + str(value) + " )"
 			cursor.execute(query_add)
 		print query_check
 	cursor.commit()	
