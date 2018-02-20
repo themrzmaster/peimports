@@ -72,12 +72,12 @@ def updateAPI(file):
 			mod_id = row[0][0]
 			for imp in entry.imports:
 				if imp.name:
-					query_get = "SELECT * FROM apis WHERE name = '" + imp.name + "'"
+					query_get = "SELECT * FROM apis WHERE name = '" + imp.name[0:45] + "'"
 					cursor.execute(query_get)
 					data = cursor.fetchall()
 					if not data:
 						m_id = str(mod_id)
-						query_set = "INSERT INTO apis (module, name) VALUES (" + m_id + ",'" + imp.name + "')" 
+						query_set = "INSERT INTO apis (module, name) VALUES (" + m_id + ",'" + imp.name[0:45] + "')" 
 						cursor.execute(query_set)
 
 			cnx.commit()			
