@@ -1,3 +1,6 @@
+import os
+import pefile
+
 for file in os.listdir(directory):
 	if not file.endswith(".py"):
 		pe = pefile.PE(file)
