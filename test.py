@@ -104,8 +104,10 @@ def extract(file):
 		name = lista[keys]
 		print name
 		quer_get_api = "SELECT idapis FROM apis WHERE name = '" + name + "'"
-		print quer_get_api
-		query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + file + "',"  +  " )"
+		cursor.execute(query_get_api)
+		row = cursor.fetchall()
+		api_id = row[0][0]
+		query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + file + "', "  + api_id + ", "  + value + " )"
 		print quer_get_api
 
 for file in os.listdir(directory):
