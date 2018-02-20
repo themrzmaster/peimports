@@ -19,7 +19,7 @@ def updateModules(file):
 		name = entry.dll
 		query_get_module = "SELECT * FROM modules WHERE name = "
 
-		query_get = query_get_module, "'"+name+"'"
+		query_get = query_get_module + "'"+name+"'"
 		print query_get
 		cursor.execute(query_get)
 		#data = cursor.fetchall()
