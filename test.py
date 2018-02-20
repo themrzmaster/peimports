@@ -19,8 +19,8 @@ def updateModules(file):
 		name = entry.dll
 		query_get_module = ("SELECT * FROM modules "
 							"WHERE name LIKE")
-		print query_get_module, ("%"+name+"%")
-		cursor.execute(query_get_module, ("%"+name+"%"))
+		print query_get_module, ("'"+name+"'")
+		cursor.execute(query_get_module, ("'"+name+"'"))
 		#data = cursor.fetchall()
 		data = 0
 		if not data:
