@@ -35,10 +35,10 @@ def checkProcessed(file):
 	cursor.execute(query_get)
 	data = cursor.fetchall()
 	if data:
-		n_processed += 1
 		return True
 	else:
-		return False	
+		return False
+	n_processed += 1		
 
 
 
