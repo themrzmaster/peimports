@@ -8,7 +8,7 @@ import os
 cnx = mysql.connector.connect(user='root', password="132331", database='pedata')
 cursor = cnx.cursor()
 
-
+cnx.rollback()
 
 
 directory = os.getcwd() + "/files"
