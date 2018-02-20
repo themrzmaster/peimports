@@ -1,6 +1,7 @@
 import os
 import pefile
 
+directory = os.path.dirname(os.path.abspath(__file__))
 for file in os.listdir(directory):
 	if not file.endswith(".py"):
 		pe = pefile.PE(file)
