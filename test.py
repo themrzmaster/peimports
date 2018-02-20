@@ -88,7 +88,7 @@ def extract(file):
 					print s
 					#count += 1
 			offset += i.length
-		except TypeError, AttributeError  as et:
+		except TypeError, AttributeError as et:
 			#print 'erro ', offset
 			offset += 12
 		#lista_count[value] = count
