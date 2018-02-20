@@ -16,7 +16,7 @@ directory = os.getcwd()
 def updateModules(directory):
 	query_get_module = ("SELECT * FROM modules WHERE name LIKE %s", ("%" + name + "%",))
 	for file in os.listdir(directory):
-		if not file.endwith(".py"):
+		if not file.endswith(".py"):
 			pe = pefile.PE(file)
 			for entry in pe.DIRECTORY_ENTRY_IMPORT:
 				name = entry.dll
