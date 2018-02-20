@@ -100,7 +100,7 @@ def extract(file):
 			module_name = entry.dll
 			for imp in entry.imports: #for each function imported calculate how many times it was called, jumped
 				if imp.name:
-					lista[str(hex(imp.address))] = imp.name
+					lista[str(hex(imp.address))] = imp.name[0:45]
 		lista_offset = list(lista.keys())
 		offset = 0
 		count = 0
@@ -129,7 +129,7 @@ def extract(file):
 		for keys, value in lista_count.iteritems():
 			name = lista[keys]
 			#print name
-			query_get_api = "SELECT idapis FROM apis WHERE name = '" + name + "'"
+			query_get_api = "SELECT idapis FROM apis WHERE name = '" + name[0:45] + "'"
 			cursor.execute(query_get_api)
 			row = cursor.fetchall()
 			api_id = row[0][0]
