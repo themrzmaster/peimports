@@ -110,6 +110,8 @@ def extract(file):
 		query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + str(file) + "', "  + str(api_id) + ", "  + str(value) + " )"
 		print query_add
 
+	print lista
+
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
 			updateFiles(file)
