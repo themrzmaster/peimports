@@ -77,6 +77,7 @@ def extract(file):
 			lista[str(hex(imp.address))] = imp.name
 	for key, value in lista.iteritems():
 		offset = 0
+		count = 0
 		while offset < len(data):
 			try:
 				i = pydasm.get_instruction(data[offset:], pydasm.MODE_32)
