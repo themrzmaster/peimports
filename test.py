@@ -75,6 +75,7 @@ def extract(file):
 		module_name = entry.dll
 		for imp in entry.imports: #for each function imported calculate how many times it was called, jumped
 			lista[str(hex(imp.address))] = imp.name
+	print lista		
 	for key, value in lista.iteritems():
 		offset = 0
 		count = 0
@@ -82,7 +83,7 @@ def extract(file):
 			try:
 				i = pydasm.get_instruction(data[offset:], pydasm.MODE_32)
 				line = pydasm.get_instruction_string(i, pydasm.FORMAT_INTEL, ep_ava+offset)
-				if any(s in line for s in list(lista.keys())):
+				if any(s in line for s in list(str(lista.keys()))):
 					print s
 					#count += 1
 					offset += i.length
