@@ -121,7 +121,7 @@ def extract(file):
 			query_add = "INSERT INTO extract (hash, api, call_number) VALUES ('" + str(hash_id) + "', "  + str(api_id) + ", "  + str(value) + " )"
 			cursor.execute(query_add)
 		print query_check
-	cursor.commit()	
+	cnx.commit()	
 	print lista
 
 for file in os.listdir(directory):
