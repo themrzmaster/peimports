@@ -15,12 +15,12 @@ print directory
 
 def updateFiles(file):
 	query_get = "SELECT * FROM files WHERE hash = '" + file + "'"
-	print query_get
+	#print query_get
 	cursor.execute(query_get)
 	data = cursor.fetchall()
 	if not data:
 		query_add = "INSERT INTO files (hash) VALUES ('" + file + "')"
-		print query_add
+		#print query_add
 		cursor.execute(query_add)
 		cnx.commit()
 
@@ -60,29 +60,29 @@ def updateAPI(file):
 				cursor.execute(query_set)
 				cnx.commit()
 
+def extract(file):
+	lista = {}
+	pe = pefile.PE(directory+"/"+file)
+	ep = pe.OPTIONAL_HEADER.AddressOfEntryPoint
+	ep_ava = ep+pe.OPTIONAL_HEADER.ImageBase
+	data = pe.get_memory_mapped_image()
+	for entry in pe.DIRECTORY_ENTRY_IMPORT:
+		module_name = entry.dll
+		for imp in entry.imports: #for each function imported calculate how many times it was called, jumped
+			lista[str(hex(imp.address))] = imp.name
+
+	print lista		
+
+		
+
+
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
 			updateFiles(file)
 			updateModules(file)
 			updateAPI(file)
+			extract(file)
 
 
 cnx.close()
 
-#for file in os.listdir(directory):
-#	if not file.endswith(".py"):
-#		pe = pefile.PE(file)
-#		ep = pe.OPTIONAL_HEADER.AddressOfEntryPoint
-#		ep_ava = ep+pe.OPTIONAL_HEADER.ImageBase
-##		data = pe.get_memory_mapped_image()
-#		offset = 0
-#		while offset < len(data):
-#			try:
-#				i = pydasm.get_instruction(data[offset:], pydasm.MODE_32)
-#				line = pydasm.get_instruction_string(i, pydasm.FORMAT_INTEL, ep_ava+offset)
-#				if '0x420468' in line:
-#					print line, offset
-#				offset += i.length
-#			except TypeError as et:
-#				#print 'erro ', offset
-#				offset += 12
