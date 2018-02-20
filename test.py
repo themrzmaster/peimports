@@ -25,7 +25,7 @@ def updateFiles(file):
 		cnx.commit()
 
 def updateModules(file):
-	pe = pefile.PE(directory+"/"+file)
+	pe = pefile.PE(file)
 	for entry in pe.DIRECTORY_ENTRY_IMPORT:
 		name = entry.dll
 		query_get_module = "SELECT * FROM modules WHERE name = "
@@ -43,7 +43,7 @@ def updateModules(file):
 			cnx.commit()
 
 def updateAPI(file):
-	pe = pefile.PE(directory+"/"+file)
+	pe = pefile.PE(file)
 	for entry in pe.DIRECTORY_ENTRY_IMPORT:
 		name = entry.dll
 		query_get_id = "SELECT idmodules FROM modules WHERE name = '" + name + "'"
@@ -62,7 +62,7 @@ def updateAPI(file):
 
 def extract(file):
 	lista = {}
-	pe = pefile.PE(directory+"/"+file)
+	pe = pefile.PE(file)
 	ep = pe.OPTIONAL_HEADER.AddressOfEntryPoint
 	ep_ava = ep+pe.OPTIONAL_HEADER.ImageBase
 	data = pe.get_memory_mapped_image()
