@@ -42,11 +42,21 @@ def updateModules(file):
 			#print emp_no
 			cnx.commit()
 
+def updateAPI(file):
+	pe = pefile.PE(directory+"/"+file)
+	for entry in pe.DIRECTORY_ENTRY_IMPORT:
+		name = entry.dll
+		query_get_id = "SELECT idmodules FROM modules WHERE name = '" + name + "'"
+		cursor.execute(query_get_id)
+		row = cursor.fetchall()
+		print row
+
 
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
 			updateFiles(file)
 			updateModules(file)
+			updateAPI(file)
 
 
 cnx.close()
