@@ -22,6 +22,8 @@ cursor = cnx.cursor()
 
 
 directory = os.getcwd()
+n_files = len(os.walk(directory).next()[2])
+n_processed = 0
 #print directory
 
 def checkProcessed(file):
@@ -30,6 +32,7 @@ def checkProcessed(file):
 	cursor.execute(query_get)
 	data = cursor.fetchall()
 	if data:
+		n_processed += 1
 		return True
 	else:
 		return False	
@@ -166,6 +169,7 @@ def extract(file):
 for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
 			if not checkProcessed(file):
+				print "processing " + n_processed + " of " + n_files + " ..."
 				updateFiles(file)
 				updateModules(file)
 				updateAPI(file)
