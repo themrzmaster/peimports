@@ -49,7 +49,7 @@ def updateAPI(file):
 		query_get_id = "SELECT idmodules FROM modules WHERE name = '" + name + "'"
 		cursor.execute(query_get_id)
 		row = cursor.fetchall()
-		print row[0]
+		print row[0][0]
 
 
 for file in os.listdir(directory):
