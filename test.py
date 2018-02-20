@@ -75,7 +75,7 @@ def extract(file):
 		module_name = entry.dll
 		for imp in entry.imports: #for each function imported calculate how many times it was called, jumped
 			lista[str(hex(imp.address))] = imp.name
-	lista_offset = tuple(list(lista.keys()))
+	lista_offset = list(lista.keys())
 	print lista_offset
 	offset = 0
 	count = 0
