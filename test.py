@@ -23,7 +23,9 @@ def updateModules(file):
 		data = cursor.fetchall()
 		if not data:
 			#not added yet
-			query_add_module = "INSERT INTO modules (name) VALUES (%s)"
+			query_add_module = ("INSERT INTO modules "
+								"(name) " 
+								"VALUES (%s)")
 			cursor.execute(query_add_module, name)
 			emp_no = cursor.lastrowid
 			print emp_no
