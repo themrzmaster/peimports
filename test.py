@@ -14,13 +14,14 @@ directory = os.getcwd() + "/files"
 print directory
 
 def updateFiles(file):
+	print file
 	query_get = "SELECT * FROM files WHERE hash = '" + file + "'"
-	#print query_get
+	print query_get
 	cursor.execute(query_get)
 	data = cursor.fetchall()
 	if not data:
 		query_add = "INSERT INTO files (hash) VALUES ('" + file + "')"
-		#print query_add
+		#rint query_add
 		cursor.execute(query_add)
 		cnx.commit()
 
