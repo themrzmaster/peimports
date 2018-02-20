@@ -55,7 +55,8 @@ def updateAPI(file):
 			cursor.execute(query_get)
 			data = cursor.fetchall()
 			if not data:
-				query_set = "INSERT INTO apis (module, name) VALUES (" + mod_id + ",'" + imp.name + "')" 
+				m_id = str(mod_id)
+				query_set = "INSERT INTO apis (module, name) VALUES (" + m_id + ",'" + imp.name + "')" 
 				print query_set
 
 for file in os.listdir(directory):
