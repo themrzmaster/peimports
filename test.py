@@ -13,20 +13,19 @@ cursor = cnx.cursor()
 
 directory = os.getcwd()
 
-def updateModules(directory):
-	query_get_module = ("SELECT * FROM modules WHERE name LIKE %s", ("%" + name + "%",))
-	for file in os.listdir(directory):
+def updateModules(file):
+	pe = pefile.PE(file)
+	for entry in pe.DIRECTORY_ENTRY_IMPORT:
+		name = entry.dll
+		query_get_module = ("SELECT * FROM modules WHERE name LIKE %s", ("%" + name + "%",))
+		cursor.execute(query_get_module)
+		data = cursor.fetchall()
+		print data
+
+
+for file in os.listdir(directory):
 		if not file.endswith(".py"):
-			pe = pefile.PE(file)
-			for entry in pe.DIRECTORY_ENTRY_IMPORT:
-				name = entry.dll
-				cursor.execute(query_get_module)
-				data = cursor.fetchall()
-				print data
-
-
-
-updateModules(directory)
+			updateModules(file)
 
 
 
