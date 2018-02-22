@@ -5,6 +5,12 @@
 -- -----------------------------------------------------
 -- Table `mydb`.`files`
 -- -----------------------------------------------------
+
+
+SELECT apis.name, SUM(extract.call_number) as soma FROM apis INNER JOIN extract ON apis.idapis = extract.api GROUP BY apis.name  ORDER BY soma DESC
+-- -----------------------------------------------------
+
+
 CREATE TABLE IF NOT EXISTS `files` (
   `idfile` INT NOT NULL,
   `hash` VARCHAR(255) NULL,
@@ -22,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `modules` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
+
 -- Table `mydb`.`apis`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `apis` (

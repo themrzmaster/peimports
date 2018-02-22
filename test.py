@@ -56,10 +56,8 @@ def updateFiles(file):
 		cursor.execute(query_add)
 		cnx.commit()
 
-def updateModules(file):
-	print file
+def updateModules(file, pe):
 	hash_file = between(file, "_", ".vir")
-	pe = pefile.PE(file)
 	try:
 		for entry in pe.DIRECTORY_ENTRY_IMPORT:
 			name = entry.dll
@@ -80,8 +78,7 @@ def updateModules(file):
 		#skip
 		print e		
 
-def updateAPI(file):
-	pe = pefile.PE(file)
+def updateAPI(file, pe):
 	try:
 		for entry in pe.DIRECTORY_ENTRY_IMPORT:
 			name = entry.dll
@@ -103,14 +100,13 @@ def updateAPI(file):
 	except AttributeError as e:
 		print e	
 
-def extract(file):
+def extract(file, pe):
 	lista = {}
 	soma = {}
 	lista_count = {}
 	x = 0
 	count = 0
 	hash_file = between(file, "_", ".vir")
-	pe = pefile.PE(file)
 	ep = pe.OPTIONAL_HEADER.AddressOfEntryPoint
 	ep_ava = ep+pe.OPTIONAL_HEADER.ImageBase
 	data = pe.get_memory_mapped_image()
@@ -174,10 +170,16 @@ for file in os.listdir(directory):
 		if not file.endswith(".py") or not file.endswith(".git") :
 			if not checkProcessed(file):
 				print "processing " + str(n_processed) + " of " + str(n_files) + " ..."
-				updateFiles(file)
-				updateModules(file)
-				updateAPI(file)
-				extract(file)
+				try:
+					print file
+					pe = pefile.PE(file)
+					updateFiles(file)
+					updateModules(file, pe)
+					updateAPI(file, pe)
+					extract(file, pe)
+				except PEFormatError as e:
+					print "no PE.. skipping..."
+
 
 
 cnx.close()
