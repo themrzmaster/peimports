@@ -14,6 +14,7 @@ SELECT apis.name, SUM(extract.call_number) as soma FROM apis INNER JOIN extract 
 CREATE TABLE IF NOT EXISTS `files` (
   `idfile` INT NOT NULL,
   `hash` VARCHAR(255) NULL,
+  `creation_time` DATE NULL,
   PRIMARY KEY (`idfile`))
 ENGINE = InnoDB;
 
@@ -24,6 +25,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `modules` (
   `idmodules` INT NOT NULL,
   `name` VARCHAR(100) NULL,
+  'blacklist' INT NULL,
   PRIMARY KEY (`idmodules`))
 ENGINE = InnoDB;
 
