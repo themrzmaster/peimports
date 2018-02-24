@@ -9,7 +9,7 @@
 
 SELECT apis.name, SUM(extract.call_number) as soma FROM apis INNER JOIN extract ON apis.idapis = extract.api GROUP BY apis.name  ORDER BY soma DESC
 -- -----------------------------------------------------
-
+ALTER TABLE modules ADD 'blacklist' INT;
 
 CREATE TABLE IF NOT EXISTS `files` (
   `idfile` INT NOT NULL,
@@ -25,7 +25,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `modules` (
   `idmodules` INT NOT NULL,
   `name` VARCHAR(100) NULL,
-  'blacklist' INT NULL,
+  `blacklist` INT NULL,
   PRIMARY KEY (`idmodules`))
 ENGINE = InnoDB;
 
@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `apis` (
   `idapis` INT NOT NULL,
   `module` INT NULL,
   `name` VARCHAR(45) NULL,
+  `blacklist` INT NULL,
   PRIMARY KEY (`idapis`),
   INDEX `module_idx` (`module` ASC),
   CONSTRAINT `module`
