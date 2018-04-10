@@ -3,16 +3,55 @@ import pydasm
 import mysql.connector
 import os
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> d059ac2b7a0bf65bbe0747c138f7d307aec0868c
 
-cnx = mysql.connector.connect(user='root', password="", database='pedata')
-cursor = cnx.cursor()
 
 directory = os.getcwd()
 n_files = len(os.walk(directory).next()[2])
 n_processed = 0
 #print directory
+
+#mysql - localhost, root, 132331, pedata
+def between(value, a, b):
+    # Find and validate before-part.
+    pos_a = value.find(a)
+    if pos_a == -1: return ""
+    # Find and validate after part.
+    pos_b = value.rfind(b)
+    if pos_b == -1: return ""
+    # Return middle part.
+    adjusted_pos_a = pos_a + len(a)
+    if adjusted_pos_a >= pos_b: return ""
+    return value[adjusted_pos_a:pos_b] 
+
+
+def checkProcessed(file):
+	global n_processed
+	hash_file = between(file, "_", ".vir")
+	query_get = "SELECT * FROM files WHERE hash = '" + hash_file + "'"
+	cursor.execute(query_get)
+	data = cursor.fetchall()
+	n_processed += 1
+	if data:
+		return True
+	else:
+		return False
+
+
+cnx = mysql.connector.connect(user='root', password="", database='pedata')
+cursor = cnx.cursor()
+
+<<<<<<< HEAD
+directory = os.getcwd()
+n_files = len(os.walk(directory).next()[2])
+n_processed = 0
+#print directory
+=======
+>>>>>>> d059ac2b7a0bf65bbe0747c138f7d307aec0868c
 
 #mysql - localhost, root, 132331, pedata
 def between(value, a, b):
