@@ -2,25 +2,10 @@
 -- Tue Feb 20 00:48:25 2018
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
-
--- -----------------------------------------------------
--- Schema 
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema 
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `` DEFAULT CHARACTER SET utf8 ;
-USE `` ;
-
 -- -----------------------------------------------------
 -- Table ``.`files`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ``.`files` (
+CREATE TABLE IF NOT EXISTS `files` (
   `idfile` INT NOT NULL AUTO_INCREMENT,
   `hash` VARCHAR(255) NULL,
   PRIMARY KEY (`idfile`))
@@ -30,7 +15,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table ``.`modules`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ``.`modules` (
+CREATE TABLE IF NOT EXISTS `modules` (
   `idmodules` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NULL,
   PRIMARY KEY (`idmodules`))
@@ -40,7 +25,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table ``.`apis`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ``.`apis` (
+CREATE TABLE IF NOT EXISTS `apis` (
   `idapis` INT NOT NULL AUTO_INCREMENT,
   `module` INT NULL,
   `name` VARCHAR(45) NULL,
@@ -48,7 +33,7 @@ CREATE TABLE IF NOT EXISTS ``.`apis` (
   INDEX `module_idx` (`module` ASC),
   CONSTRAINT `module`
     FOREIGN KEY (`module`)
-    REFERENCES ``.`modules` (`idmodules`)
+    REFERENCES `modules` (`idmodules`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -57,7 +42,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table ``.`extract`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ``.`extract` (
+CREATE TABLE IF NOT EXISTS `extract` (
   `idextract` INT NOT NULL AUTO_INCREMENT,
   `hash` INT NULL,
   `api` INT NULL,
@@ -67,17 +52,13 @@ CREATE TABLE IF NOT EXISTS ``.`extract` (
   INDEX `api_idx` (`api` ASC),
   CONSTRAINT `hash`
     FOREIGN KEY (`hash`)
-    REFERENCES ``.`files` (`idfile`)
+    REFERENCES `files` (`idfile`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `api`
     FOREIGN KEY (`api`)
-    REFERENCES ``.`apis` (`idapis`)
+    REFERENCES `apis` (`idapis`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
