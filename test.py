@@ -3,12 +3,6 @@ import pydasm
 import mysql.connector
 import os
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> d059ac2b7a0bf65bbe0747c138f7d307aec0868c
-
 
 directory = os.getcwd()
 n_files = len(os.walk(directory).next()[2])
@@ -45,13 +39,11 @@ def checkProcessed(file):
 cnx = mysql.connector.connect(user='root', password="", database='pedata')
 cursor = cnx.cursor()
 
-<<<<<<< HEAD
 directory = os.getcwd()
 n_files = len(os.walk(directory).next()[2])
 n_processed = 0
 #print directory
-=======
->>>>>>> d059ac2b7a0bf65bbe0747c138f7d307aec0868c
+
 
 #mysql - localhost, root, 132331, pedata
 def between(value, a, b):
